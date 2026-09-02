@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OreoMath | Level Up Your Math Skills</title>
+    <style>
+        :root {
+            --oreo-dark: #231f20;
+            --oreo-cream: #ffffff;
+            --oreo-blue: #0076a3;
+            --oreo-accent: #eef7fc;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--oreo-dark);
+            color: var(--oreo-cream);
+            overflow-x: hidden;
+        }
+
+        /* Hero Navbar & Banner */
+        header {
+            background: linear-gradient(135deg, var(--oreo-blue), #004d6c);
+            padding: 20px;
+            text-align: center;
+            border-bottom: 5px solid var(--oreo-cream);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+
+        /* Pure CSS Oreo Mascot */
+        .oreo-mascot {
+            width: 60px;
+            height: 60px;
+            background: var(--oreo-dark);
+            border-radius: 50%;
+            position: relative;
+            border: 4px dashed #111;
+            box-shadow: inset 0 0 0 6px var(--oreo-dark), 
+                        0 0 0 4px var(--oreo-cream),
+                        0 4px 10px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .oreo-mascot::before {
+            content: "OREO";
+            font-size: 10px;
+            font-weight: 900;
+            color: #111;
+            letter-spacing: 1px;
+            z-index: 2;
+        }
+        .oreo-mascot::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 8px;
+            background: var(--oreo-cream);
+            top: calc(50% - 4px);
+            z-index: 1;
+            box-shadow: 0 0 4px rgba(0,0,0,0.2);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+        }
+
+        header p {
+            color: var(--oreo-accent);
+            font-size: 1.1rem;
+        }
+
+        /* Main Game Arena */
+        main {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .game-card {
+            background: #2d2829;
+            border: 3px solid var(--oreo-blue);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+
+        .score-board {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 25px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-left: 5px solid var(--oreo-blue);
+        }
+
+        .score-board span {
+            color: #00ccff;
+        }
+
+        .math-display {
+            font-size: 3.5rem;
+            margin: 20px 0;
+            font-weight: bold;
+            letter-spacing: 3px;
+            background: linear-gradient(to right, #fff, var(--oreo-accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Interactive Input Elements */
+        .input-zone {
+            margin: 20px 0;
+        }
+
+        input[type="number"] {
+            width: 180px;
+            padding: 12px;
+            font-size: 1.5rem;
+            border-radius: 8px;
+            border: 3px solid var(--oreo-cream);
+            background: var(--oreo-dark);
+            color: #fff;
+            text-align: center;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        input[type="number"]:focus {
+            border-color: var(--0reo-blue);
+            box-shadow: 0 0 10px rgba(0, 118, 163, 0.5);
+        }
+
+        button {
+            padding: 12px 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            background: var(--oreo-blue);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-left: 10px;
+            box-shadow: 0 4px 0 #004d6c;
+            transition: all 0.1s;
+        }
+
+        button:active {
+            transform: translateY(4px);
+            box-shadow: none;
+        }
+
+        .feedback {
+            margin-top: 15px;
+            font-size: 1.3rem;
+            height: 30px;
+            font-weight: bold;
+        }
+
+        .correct { color: #4caf50; }
+        .incorrect { color: #f44336; }
+
+        /* Navigation Grid (Mimicking Game Selection Sites) */
+        .grid-title {
+            text-align: center;
+            margin: 50px 0 20px;
+            font-size: 1.8rem;
+            color: var(--oreo-blue);
+            text-transform: uppercase;
+        }
+
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .grid-item {
+            background: #2d2829;
+            border: 2px solid #443e40;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .grid-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--oreo-blue);
+        }
+
+        .grid-item .icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .grid-item h3 {
+            font-size: 1.1rem;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-container">
+            <div class="oreo-mascot"></div>
+            <h1>OreoMath</h1>
+        </div>
+        <p>Master math through cookie challenges! Compete, learn, and earn rewards! 🍪✨</p>
+    </header>
+
+    <main>
+        <!-- Interactive Arena -->
+        <section class="game-card">
+            <div class="score-board">
+                <div>Cookies Earned: <span id="score">0</span> 🍪</div>
+                <div>Streak: <span id="streak">0</span> 🔥</div>
+            </div>
+            
+            <h2>Solve the Recipe!</h2>
+            <div class="math-display" id="problem">0 + 0</div>
+
+            <div class="input-zone">
+                <input type="number" id="answer" placeholder="?" autocomplete="off">
+                <button onclick="checkAnswer()">Submit</button>
+            </div>
+
+            <div class="feedback" id="feedback"></div>
+        </section>
+
+        <!-- Dynamic Game Modes Layout -->
+        <h2 class="grid-title">Alternative Cookie Modes</h2>
+        <section class="game-grid">
+            <div class="grid-item" onclick="changeMode('add')">
+                <div class="icon">➕</div>
+                <h3>Double Stuf Addition</h3>
+            </div>
+            <div class="grid-item" onclick="changeMode('sub')">
+                <div class="icon">➖</div>
+                <h3>Sub-Cream Subtraction</h3>
+            </div>
+            <div class="grid-item" onclick="changeMode('mult')">
+                <div class="icon">✖️</div>
+                <h3>Mega Stuf Multiplication</h3>
+            </div>
+            <div class="grid-item" onclick="changeMode('div')">
+                <div class="icon">➗</div>
+                <h3>Cookie Splitting Division</h3>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        let score = 0;
+        let streak = 0;
+        let currentAnswer = 0;
+        let currentMode = 'add';
+
+        function generateProblem() {
+            let num1 = Math.floor(Math.random() * 12) + 1;
+            let num2 = Math.floor(Math.random() * 12) + 1;
+            const display = document.getElementById('problem');
+
+            switch(currentMode) {
+                case 'add':
+                    currentAnswer = num1 + num2;
+                    display.innerText = `${num1} + ${num2}`;
+                    break;
+                case 'sub':
+                    // Prevent negative results for simple arcade feel
+                    if(num1 < num2) [num1, num2] = [num2, num1];
+                    currentAnswer = num1 - num2;
+                    display.innerText = `${num1} - ${num2}`;
+                    break;
+                case 'mult':
+                    currentAnswer = num1 * num2;
+                    display.innerText = `${num1} × ${num2}`;
+                    break;
+                case 'div':
+                    // Ensure clean integer results
+                    let product = num1 * num2;
+                    currentAnswer = num1;
+                    display.innerText = `${product} ÷ ${num2}`;
+                    break;
+            }
+            document.getElementById('answer').value = '';
+        }
+
+        function checkAnswer() {
+            const userAnswer = parseInt(document.getElementById('answer').value);
+            const feedback = document.getElementById('feedback');
+
+            if (isNaN(userAnswer)) return;
+
+            if (userAnswer === currentAnswer) {
+                score += 1;
+                streak += 1;
+                feedback.innerText = "Correct! +1 Oreo Cookied 🍪";
+                feedback.className = "feedback correct";
+                document.getElementById('score').innerText = score;
+                document.getElementById('streak').innerText = streak;
+                setTimeout(generateProblem, 1200);
+            } else {
+                streak = 0;
+                feedback.innerText = `Wrong! The recipe needed ${currentAnswer}.`;
